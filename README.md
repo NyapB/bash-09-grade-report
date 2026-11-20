@@ -10,7 +10,7 @@ Rebase instructors receive a spreadsheet of scores and spend an evening calculat
 
 - collect scores for students in their various courses
 - calculate the total score per student
-- calculate the average per studen
+- calculate the average per student
 - get the rank of each student based on their scores
 - give their mentions with respet to their averages
 
