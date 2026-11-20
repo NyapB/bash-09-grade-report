@@ -59,9 +59,9 @@ GitHub
 clone the repository
 
 ```bash
-    git clone https://github.com/NyapB/Bash-09-grade-report.git
+    git clone https://github.com/NyapB/bash-09-grade-report.git
 
-    - cd Bash_09_grade_report
+    - cd bash_09_grade_report
     - give permission using chmod +x grades.sh
     - run with ./grades.sh
 ```
