@@ -9,8 +9,8 @@ fi
 CSV_FILE="$1"
 
 # Check if the file exists and is readable
-if [ ! -f "$CSV_FILE" ]; then
-    echo "Error: File '$CSV_FILE' not found." >&2
+if [ ! -f "$CSV_FILE" ] || [ ! -r "$CSV_FILE" ]; then
+    echo "Error: File '$CSV_FILE' not found or not readable." >&2
     exit 1
 fi
 
@@ -26,6 +26,16 @@ class_total_score=0
 # Create a temporary file for sorting
 tmp_file=$(mktemp)
 
+# Helper function to trim CR/whitespace and strip leading zeros from numeric strings
+clean_score() {
+    local val
+    val=$(printf '%s' "$1" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+    if [[ "$val" =~ ^0+[0-9]+$ ]]; then
+        val=$((10#$val))
+    fi
+    printf '%s' "$val"
+}
+
 # Read the CSV file line by line
 while IFS=',' read -r raw_name raw_html raw_css raw_bash raw_git || [ -n "$raw_name" ]; do
     ((line_num++))
@@ -35,12 +45,12 @@ while IFS=',' read -r raw_name raw_html raw_css raw_bash raw_git || [ -n "$raw_n
         continue
     fi
 
-    # Clean data: Remove Windows carriage returns (\r) and trailing/leading spaces
-    name=$(echo "$raw_name" | tr -d '\r' | xargs)
-    html=$(echo "$raw_html" | tr -d '\r' | xargs)
-    css=$(echo "$raw_css" | tr -d '\r' | xargs)
-    bash=$(echo "$raw_bash" | tr -d '\r' | xargs)
-    git=$(echo "$raw_git" | tr -d '\r' | xargs)
+    # Clean data: Remove Windows carriage returns (\r), trim spaces, and normalize leading zeros
+    name=$(printf '%s' "$raw_name" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+    html=$(clean_score "$raw_html")
+    css=$(clean_score "$raw_css")
+    bash=$(clean_score "$raw_bash")
+    git=$(clean_score "$raw_git")
 
     # Validation: Check for missing name
     if [ -z "$name" ]; then
@@ -63,7 +73,6 @@ while IFS=',' read -r raw_name raw_html raw_css raw_bash raw_git || [ -n "$raw_n
             echo "Warning: Line $line_num skipped (score '$score' is not a valid whole number)" >&2
             invalid_score=1
             break
-        # Force Base-10 (10#) to handle leading zeros like 08 and 09 without octal crashes
         elif (( 10#$score > 20 )); then
             echo "Warning: Line $line_num skipped (score $score exceeds maximum of 20)" >&2
             invalid_score=1
@@ -114,7 +123,7 @@ done
 # Clean up temporary storage footprint
 rm -f "$tmp_file"
 
-# Adjusted dashed separator to match the ~60-character table width perfectly
+# Dashed separator matching the ~60-character table width
 echo "------------------------------------------------------------"
 if [ $total_valid_students -gt 0 ]; then
     class_avg=$(awk "BEGIN {printf \"%.2f\", ($class_total_score / $total_valid_students) / 4}")
