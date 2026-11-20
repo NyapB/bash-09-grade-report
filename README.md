@@ -33,12 +33,14 @@ Run the script by providing the path to a grade CSV file:
 ## Sample Output
 
 ```text
-RANK NAME             HTML  CSS BASH  GIT AVERAGE MENTION
-   1 Brenda Fon         19   20   18   17   18.50 Très bien
-   2 Becky              18   18   17   16   17.25 Très bien
-   3 Kevin Tabi         12   11   11   12   11.50 Passable
-----------------------------------------------
-Class average: 15.75
+Warning: Line 5 skipped (missing score)
+Warning: Line 6 skipped (score 'abs' is not a valid whole number)
+   1 Abigail            17   18   16   19  17.50 Très bien
+   2 Becky              19   17   15   18  17.25 Très bien
+   3 Kerry              13   15   17   20  16.25 Très bien
+   4 zero test          09   08   10   12   9.75 Échec
+------------------------------------------------------------
+Class average: 15.19
 Skipped 2 invalid lines (see warnings above)
 ```
 
