@@ -4,7 +4,7 @@ A Bash script that cleans, processes, validates, and ranks student grades from a
 
 ## 📌 Problem Statement
 
-Rebase instructors receive a spreadsheet of scores and spend an evening calculating averages and rankings by hand. Build grades.sh helps the instructors to take two seconds.
+Rebase instructors receive a spreadsheet of scores and spend an evening calculating averages and rankings by hand. Building grades.sh helps the instructors to take two seconds.
 
 ## 🎯 Project Goals
 
@@ -12,15 +12,15 @@ Rebase instructors receive a spreadsheet of scores and spend an evening calculat
 - calculate the total score per student
 - calculate the average per student
 - get the rank of each student based on their scores
-- give their mentions with respet to their averages
+- give their mentions with respect to their averages
 
 ## Setup & Execution
 
 Clone the repository and navigate to the project directory:
 
 ```bash
-git clone <your-repo-url>
-cd Bash-09-grade-report
+git clone https://github.com/NyapB/bash-09-grade-report
+cd bash-09-grade-report
 chmod +x grades.sh
 ```
 
@@ -33,15 +33,16 @@ Run the script by providing the path to a grade CSV file:
 ## Sample Output
 
 ```text
-Warning: Line 5 skipped (missing score)
-Warning: Line 6 skipped (score 'abs' is not a valid whole number)
-   1 Abigail            17   18   16   19  17.50 Très bien
-   2 Becky              19   17   15   18  17.25 Très bien
-   3 Kerry              13   15   17   20  16.25 Très bien
-   4 zero test          09   08   10   12   9.75 Échec
-------------------------------------------------------------
-Class average: 15.19
-Skipped 2 invalid lines (see warnings above)
+    RANK NAME             HTML  CSS BASH  GIT    AVG MENTION
+    Warning: Line 5 skipped (missing score)
+    Warning: Line 6 skipped (score 'abs' is not a valid whole number)
+        1 Abigail            17   18   16   19  17.50 Très bien
+        2 Becky              19   17   15   18  17.25 Très bien
+        3 Kerry              13   15   17   20  16.25 Très bien
+        4 zero test           9    8   10   12   9.75 Échec
+    ------------------------------------------------------------
+    Class average: 15.19
+    Skipped 2 invalid lines (see warnings above)
 ```
 
 ## 🛠 Tech Stack
@@ -54,18 +55,6 @@ GitHub
 
 ![ bash grade_report ](<assets/images/Screenshot From 2026-11-03 14-28-22.png>)
 
-## ⚙ Installation & Setup
-
-clone the repository
-
-```bash
-    git clone https://github.com/NyapB/bash-09-grade-report.git
-
-    - cd bash_09_grade_report
-    - give permission using chmod +x grades.sh
-    - run with ./grades.sh
-```
-
 ## 🧠 Challenges Faced
 
 - identifying a file
@@ -75,7 +64,7 @@ clone the repository
 ## 📚 What I Learned
 
 - strengthen checks using while loops and if statements
-- compressing codes inorder to have very long codes
+- writing cleaner, modular code using helper functions instead of repetitive blocks
 
 ## 👨🏽‍💻 Author
 

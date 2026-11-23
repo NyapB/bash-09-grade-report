@@ -2,7 +2,7 @@
 
 # Check if a file argument is provided
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 FILE.csv" >&2
+    echo "Usage: $0 grades.csv" >&2
     exit 1
 fi
 
